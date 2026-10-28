@@ -1,0 +1,28 @@
+# Apple Silicon / Python 3.12 environment
+# TensorFlow 2.18 pairs with Apple's tensorflow-metal 1.2 plugin generation
+# and both publish native macOS ARM64 wheels for Python 3.12.
+torch==2.14.1
+torchvision==0.29.1
+tensorflow==2.18.0
+tensorflow-metal==1.2.0 ; sys_platform == "darwin" and platform_machine == "arm64" and python_version < "3.13"
+
+# Keep NumPy below 2 for the project's imgaug 0.4 notebook and TF compatibility.
+numpy>=1.26,<2
+matplotlib
+pillow
+torchsummary
+einops
+scikit-learn
+opencv-python==4.11.0.86
+seaborn
+keras-tuner
+ipykernel
+imgaug==0.4.0
+
+# Optional legacy stack for older scripts that require TensorFlow 2.15 / TFA.
+# These packages are excluded from Python 3.12; TFA 0.23 targets TF 2.15 and
+# Python <=3.11. The legacy TF experimental.preprocessing API also needs code updates
+# before using the current TensorFlow 2.21 environment.
+tensorflow-macos==2.15.0 ; sys_platform == "darwin" and platform_machine == "arm64" and python_version < "3.12"
+tensorflow==2.15.0 ; sys_platform != "darwin" and python_version < "3.12"
+tensorflow-addons==0.23.0 ; python_version < "3.12"
